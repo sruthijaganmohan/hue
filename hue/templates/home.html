@@ -47,16 +47,14 @@
 
     #taglines-p1 {
         margin-top: 30px;
+        font-style: italic;
     }
 
-    #taglines-p2 {
-        margin-top: -5px;
-    }
 
     #posters-p1 {
         color: #000000;
         width: 400px;
-        margin-top: 840px;
+        margin-top: 850px;
         font-size: 22px;
         margin-left: 310px;
     }
@@ -74,7 +72,7 @@
         width: 400px;
         font-size: 25px;
         margin-left: 850px;
-        margin-top: -490px;
+        margin-top: -485px;
     }
 
     #posters-p4 {
@@ -115,13 +113,16 @@
 {% block content %} 
 
 <div class="header">
-    <div class="before-login"><a href="login">LOGIN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="register">REGISTER</a></div>
+    {% if user.is_authenticated %}
+        <div class="after-login"><a href="home">{{user.username}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">LOGOUT</a></div>
+    {% else %}
+        <div class="before-login"><a href="login">LOGIN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="register">REGISTER</a></div>
+    {% endif %}
 </div>
 
 <div class="taglines">
     <h1>canvas to community</h1>
-    <p id="taglines-p1">Bridging artists and admirers through a vibrant platform</p>
-    <p id="taglinesp2">for creative expression and connection.</p>
+    <p id="taglines-p1">Bridging artists and admirers through a vibrant platform <br> for creative expression and connection.</p>
 </div>
 
 <div class="posters">

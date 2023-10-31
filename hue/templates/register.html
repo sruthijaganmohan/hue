@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+    
+    body {
+        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-register-login.png?raw=true')
+    }
+
+    h6 {
+        color: #D9534F;
+        font-family: 'Unbounded', sans-serif;
+        font-style: italic;
+        text-align: center;
+    }
+
+    .register {
+        font-family: 'Unbounded', sans-serif;
+        margin-top: 200px;
+        margin-left: 625px;
+    }
+
+    .register-input {
+        padding: 20px;
+        border: #ffffff solid 3px;
+        background-color: transparent;
+        border-radius: 40px;
+        margin-top: 5px;
+        color: #ffffff;
+    }
+
+    .register-button {
+        padding: 20px;
+        background-color: #F2ECDF;
+        border: #000000 solid 4px;
+        border-radius: 40px;
+        width: 287px;
+        margin-top: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %} 
+<form action="" method="post" class="register">
+    {% csrf_token %}
+    <div class="error-messages">
+        {% for message in messages %}
+        <h6>{{message}}</h6>
+        {% endfor %}
+    </div>
+    <input type="text" placeholder="username" class="register-input" name="username" required><br>
+    <input type="email" placeholder="email" class="register-input" name="email" required><br>
+    <input type="password" placeholder="password" class="register-input" name="password1" required><br>
+    <input type="password" placeholder="confirm password" class="register-input" name="password2" required><br>
+    <button type="submit" class="register-button">register</button>
+</form>
+{% endblock %}
