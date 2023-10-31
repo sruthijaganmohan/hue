@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+    
+    body {
+        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-register-login.png?raw=true')
+    }
+
+    h3 {
+        font-family: 'Unbounded', sans-serif;
+        color: #ffffff;
+        margin-top: 200px;
+        margin-left: 420px;
+    }
+    
+
+    .settings {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+
+    img {
+        border-radius: 20px;
+        margin-left: 40px;
+    }
+
+    input[type=file]::file-selector-button {
+        background-color: transparent; 
+        color: transparent;
+        border: none;
+    }
+
+    input[type='file'] {
+        color: transparent;
+        margin-left: -200px;
+        width: 200px;
+        height: 200px;
+        margin-top: -100px;
+    }
+
+    textarea {
+        font-family: 'Unbounded', sans-serif;
+        padding: 20px;
+        width: 500px;
+        height: 200px;
+        background-color: #F2ECDF;
+        border-radius: 20px;
+        border: #000000 solid 3px;
+        margin-left: -330px;
+    }
+
+    #save {
+        background-color: #D9534F;
+        color: #ffffff;
+        border-radius: 20px;
+        border: #000000 solid 3px;
+        padding: 20px 40px 20px 40px;
+        font-family: "Unbounded", sans-serif;
+        margin-left: 1030px;
+        margin-top: -100px;
+        margin-bottom: 10px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %} 
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        <h3>{{user.username}}</h3>
+        <button id="save" type="submit">save</button>
+    </div>
+    
+    <div class="settings">
+        <div>
+            <img width="200" height="200" src="{{user_settings.profile_img.url}}" />
+            <input id="image_input" type="file" name="image" value="">
+        </div>
+        <textarea name="bio">{{user_settings.bio}}</textarea>
+    </div>
+    
+</form>
+{% endblock %}

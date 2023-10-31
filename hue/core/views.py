@@ -31,7 +31,7 @@ def register(request):
                 user_model = User.objects.get(username=username)
                 profile = Profile.objects.create(user=user_model, id_user=user_model.id)
                 profile.save()
-                return redirect('home')
+                return redirect('settings')
         else:
             messages.info(request, 'Password does not match')
             return redirect('register')
@@ -56,3 +56,22 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('login')
+
+@login_required(login_url='login')
+def settings(request):
+    user_settings = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        if request.FILES.get('image') == None:
+            image = user_settings.profile_img
+            bio = request.POST['bio']
+            user_settings.profile_img = image
+            user_settings.bio = bio
+            user_settings.save()
+        if request.FILES.get('image') != None:
+            image = request.FILES.get('image')
+            bio = request.POST['bio']
+            user_settings.profile_img = image
+            user_settings.bio = bio
+            user_settings.save()
+        return redirect('settings')
+    return render(request, 'settings.html', {'user_settings':user_settings})
