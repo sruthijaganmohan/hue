@@ -114,7 +114,7 @@
 
 <div class="header">
     {% if user.is_authenticated %}
-        <div class="after-login"><a href="settings">{{user.username}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">LOGOUT</a></div>
+        <div class="after-login"><a href="feed">{{user.username}}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">LOGOUT</a></div>
     {% else %}
         <div class="before-login"><a href="login">LOGIN</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="register">REGISTER</a></div>
     {% endif %}

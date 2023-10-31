@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+    
+    body {
+        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-feed.png?raw=true')
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 20px;
+        margin-left: -350px;
+    }
+
+    #search-input {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #ffffff;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 20px;
+    }
+
+    #upload-button, #settings, #search-button {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #F2ECDF;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 20px;
+    }
+
+    .upload-box {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #F2ECDF;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 20px;
+        width: 300px;
+        height: 200px;
+        margin-left: -1080px;
+        opacity: 0%;
+    }
+
+    input[type='file'] {
+        width: 270px;
+    }
+
+    textarea {
+        margin-top: 5px;
+        background-color: #ffffff;
+        border: #000000 solid 4px;
+    }
+
+    #upload-submit {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #88ac88;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 10px;
+        width: 260px;
+    }
+
+    .post {
+        display: flex;
+        flex-direction: column;
+        background-color: #F2ECDF;
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 20px;
+        width: 500px;
+        height: 600px;
+    }
+
+    .post_element {
+        margin-bottom: 5px;
+    }
+
+
+
+
+</style>
+{% endblock %}
+
+{% block content %} 
+<div class="header">
+    <form class="search">
+        <input type="text"id="search-input">
+        <button id="search-button">search</button>
+    </form>
+    <div><button id="upload-button">upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="settings" id="settings">settings</a></div>
+    <div class="upload-box">
+        <form action="upload" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="post_image">
+            <textarea name="caption"></textarea>
+            <button type="submit" id="upload-submit">upload</button>
+        </form>
+    </div>
+</div>
+
+<div class="posts">
+    {% for post in posts %}
+    <div class="post">
+        <label class="post-element" id="post-user">@{{post.user}}</label>
+        <img src="{{post.image.url}}" class="post-element" id="post-image">
+        <label class="post-element" id="post-caption">{{post.caption}}</label>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
+<script>
+    document.getElementById("upload-button").addEventListener("click", function() {
+        var uploadBox = document.querySelector(".upload-box");
+        if (uploadBox.style.opacity === "0%" || uploadBox.style.opacity === "") {
+            uploadBox.style.opacity = "100%";
+        } else {
+            uploadBox.style.opacity = "0%";
+        }
+    });
+
+</script>
+
+{% endblock %}

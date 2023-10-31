@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile
+from .models import Profile, Post
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -55,7 +55,7 @@ def login(request):
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
-    return redirect('login')
+    return redirect('home')
 
 @login_required(login_url='login')
 def settings(request):
@@ -75,3 +75,23 @@ def settings(request):
             user_settings.save()
         return redirect('settings')
     return render(request, 'settings.html', {'user_settings':user_settings})
+
+@login_required(login_url='login')
+def feed(request):
+    user_object = User.objects.get(username=request.user.username)
+    user_feed = Profile.objects.get(user=user_object)
+    posts = Post.objects.all()
+    return render(request, 'feed.html', {'user_feed':user_feed, 'posts':posts})
+
+@login_required(login_url='login')
+def upload(request):
+    if request.method == 'POST':
+        user = request.user.username
+        image = request.FILES.get('post_image')
+        caption = request.POST['caption']
+
+        post = Post.objects.create(user=user, image=image, caption=caption)
+        post.save()
+        return redirect('home')
+    else:
+        return redirect('home')
