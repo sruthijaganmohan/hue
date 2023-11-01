@@ -66,6 +66,10 @@
         width: 260px;
     }
 
+    .posts {
+        margin-left: 540px;
+    }
+
     .post {
         display: flex;
         flex-direction: column;
@@ -73,15 +77,32 @@
         font-family: 'Unbounded', sans-serif;
         color: #000000;
         border: #000000 solid 4px;
-        border-radius: 50px;
+        border-radius: 30px;
         padding: 20px;
         width: 500px;
         height: 600px;
     }
 
     .post_element {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
+
+    .likes {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #f28181;
+        border: #000000 solid 3px;
+        border-radius: 90px;
+        padding: 5px;
+        margin-top: -10px;
+    }
+
+    #post-caption {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
 
 
 
@@ -107,12 +128,13 @@
 </div>
 
 <div class="posts">
-    {% for post in posts %}
+    {% for post in posts reversed %}
     <div class="post">
-        <label class="post-element" id="post-user">@{{post.user}}</label>
-        <img src="{{post.image.url}}" class="post-element" id="post-image">
-        <label class="post-element" id="post-caption">{{post.caption}}</label>
-    </div>
+        <label class="post-element" id="post-user"><strong>@{{post.user}}</strong></label>
+        <img src="{{post.image.url}}" class="post-element" id="post-image"><br>
+        <label class="post-element" id="post-caption">{{post.caption}}
+        <a href="/like?post_id={{post.id}}" class="likes">{{post.likes_no}} likes</a></label>
+    </div><br>
     {% endfor %}
 </div>
 
