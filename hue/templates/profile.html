@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+    
+    body {
+        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-feed.png?raw=true')
+    }
+
+    hr {
+        background-color: #F2ECDF;
+    }
+
+    .profile-details {
+        display: flex;
+        justify-content: space-around;
+        font-family: 'Unbounded', sans-serif;
+        margin-top: 30px;
+    }
+
+    .image-details {
+        margin-left: 500px;
+    }
+
+    .text-details {
+        margin-right: 450px;
+    }
+
+    #profile-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 20px;
+        border: #000000 solid 4px;
+    }
+
+    #username {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    a, #follow-button {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #F2ECDF;
+        border: #000000 solid 4px;
+        border-radius: 50px;
+        padding: 20px;
+        font-size: 20px;
+    }
+
+    #bio {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #following {
+        color: #ffffff;
+        font-size: 20px;
+    }
+
+    #followers {
+        color: #ffffff;
+        font-size: 20px;
+    }
+    
+    span {
+        margin-left: 10px;
+    }
+
+    .posts {
+        margin-top: 40px;
+        margin-left: 540px;
+    }
+
+    .post {
+        display: flex;
+        flex-direction: column;
+        background-color: #F2ECDF;
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        border: #000000 solid 4px;
+        border-radius: 30px;
+        padding: 20px;
+        width: 500px;
+        height: 600px;
+    }
+
+    .post_element {
+        margin-bottom: 10px;
+    }
+
+    .likes {
+        font-family: 'Unbounded', sans-serif;
+        color: #000000;
+        background-color: #f28181;
+        border: #000000 solid 3px;
+        border-radius: 90px;
+        padding: 5px;
+        margin-top: -10px;
+    }
+
+    #post-caption {
+        display: flex;
+        justify-content: space-between;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %} 
+
+
+<div class="profile-details">
+    <div class="image-details">
+        <img id="profile-img" src="{{user_profile.profile_img.url}}">
+    </div>
+    <div class="text-details">
+        <form action="/follow" method="POST" >
+            <span id="username">@{{user_profile.user.username}}</span>
+            <span><button type="submit" id="follow-button">follow</button></span>
+            <span><a href="/settings">settings</a></span><br><br>
+            <span id="bio">{{user_profile.bio}}</span>
+            <span id="following">following</span>
+            <span id="followers">followers</span>
+        </form>
+    </div>
+</div>
+
+<hr>
+
+{% for post in user_posts reversed %}
+    <div class="posts">
+        <div class="post">
+            <label class="post-element" id="post-user"><strong>@{{post.user}}</strong></label>
+            <img src="{{post.image.url}}" class="post-element" id="post-image"><br>
+            <label class="post-element" id="post-caption">{{post.caption}}
+            <a href="/like?post_id={{post.id}}" class="likes">{{post.likes_no}} likes</a></label>
+        </div><br>
+    </div>
+    
+{% endfor %}
+
+{% endblock %}
