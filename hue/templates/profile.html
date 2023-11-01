@@ -24,7 +24,8 @@
     }
 
     .text-details {
-        margin-right: 450px;
+        margin-top: 20px;
+        margin-right: 400px;
     }
 
     #profile-img {
@@ -117,12 +118,18 @@
     </div>
     <div class="text-details">
         <form action="/follow" method="POST" >
+            {% csrf_token %}
             <span id="username">@{{user_profile.user.username}}</span>
-            <span><button type="submit" id="follow-button">follow</button></span>
+            <input type="hidden" value="{{user.username}}" name="follower" />
+			<input type="hidden" value="{{user_object.username}}" name="user" />
+            {% if user_object.username == user.username %}
             <span><a href="/settings">settings</a></span><br><br>
+            {% else %}
+            <span><button type="submit" id="follow-button">{{follow_button_text}}</button></span><br><br>
+            {% endif %}
             <span id="bio">{{user_profile.bio}}</span>
-            <span id="following">following</span>
-            <span id="followers">followers</span>
+            <span id="following">{{user_following}} following</span>
+            <span id="followers">{{user_followers}} followers</span>
         </form>
     </div>
 </div>

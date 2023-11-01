@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
+    
+    body {
+        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-feed.png?raw=true')
+    }
+
+    .search-results {
+        margin: 50px;
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .item {
+        background-color: #F2ECDF;
+        border: #000000 solid 4px;
+        border-radius: 30px;
+        padding: 20px;
+        width: 200px;
+        height: 230px;
+        margin-bottom: 30px;
+    }
+
+    #item-img {
+        width: 150px;
+        height: 150px;
+    }
+
+    #item-username {
+        font-family: 'Unbounded', sans-serif;
+        font-size: 20px;
+        color: #000000;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %} 
+<div class="search-results">
+    {% for users in username_profile_list %}
+    <div class="item">
+        <a href="/profile/{{users.user}}">
+            <span><img id="item-img" src="{{users.profile_img.url}}"></span>
+            <span><p id="item-username">@{{users.user}}</p></span>
+        </a>
+    </div>
+    
+    {% endfor %}
+</div>
+{% endblock %}

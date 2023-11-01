@@ -77,7 +77,6 @@
         font-family: 'Unbounded', sans-serif;
         color: #000000;
         border: #000000 solid 4px;
-        border-radius: 30px;
         padding: 20px;
         width: 500px;
         height: 600px;
@@ -95,6 +94,10 @@
         border-radius: 90px;
         padding: 5px;
         margin-top: -10px;
+    }
+
+    #post-user {
+        color: #000000;
     }
 
     #post-caption {
@@ -119,9 +122,10 @@
 
 {% block content %} 
 <div class="header">
-    <form class="search">
-        <input type="text"id="search-input">
-        <button id="search-button">search</button>
+    <form action="search" method="post" class="search">
+        {% csrf_token %}
+        <input type="text"id="search-input" name="username">
+        <button type="submit" id="search-button">search</button>
     </form>
     <div><button id="upload-button">upload</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="profile/{{user}}" id="profile">profile</a></div>
     <div class="upload-box">
@@ -137,9 +141,9 @@
 <hr> 
 
 <div class="posts">
-    {% for post in posts reversed %}
+    {% for post in feed_list reversed %}
     <div class="post">
-        <label class="post-element" id="post-user"><strong>@{{post.user}}</strong></label>
+        <a href="/profile/{{post.user}}" class="post-element" id="post-user"><strong>@{{post.user}}</strong></a>
         <img src="{{post.image.url}}" class="post-element" id="post-image"><br>
         <label class="post-element" id="post-caption">{{post.caption}}
         <a href="/like?post_id={{post.id}}" class="likes">{{post.likes_no}} likes</a></label>
