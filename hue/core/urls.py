@@ -10,6 +10,7 @@ urlpatterns = [
     path('feed', views.feed, name='feed'),
     path('upload', views.upload, name='upload'),
     path('like', views.like, name='like'),
+    path('comment', views.comment, name='comment'),
     path('profile/<str:pk>', views.profile, name='profile'),
     path('follow', views.follow, name='follow'),
     path('search', views.search, name='search'),

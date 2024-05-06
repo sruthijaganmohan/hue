@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from .models import Profile, Post, Like, Follow
+from .models import Profile, Post, Like, Follow, Comment
 from django.contrib.auth.decorators import login_required
 from itertools import chain
 
@@ -128,6 +128,25 @@ def like(request):
         post.save()
         return redirect('feed')
     
+@login_required
+def comment(request):
+    if request.method == 'POST':
+        username = request.user.username
+        post_id = request.POST.get('post_id')
+        content = request.POST.get('content')
+        post = Post.objects.get(id=post_id)
+        comment = Comment.objects.create(post_id=post_id, username=username, content=content)
+        comment.save()
+        if post.comments is None:
+            post.comments = f"{username}   {content}\n"
+        else:
+            post.comments += f"{username}   {content}\n"
+        post.save()
+        return redirect('feed')
+    else:
+        return redirect('feed')
+
+    
 @login_required(login_url='login')
 def profile(request, pk):
     user_object = User.objects.get(username=pk)
@@ -141,6 +160,7 @@ def profile(request, pk):
         follow_button_text = 'Follow'
     user_followers = len(Follow.objects.filter(user=pk))
     user_following = len(Follow.objects.filter(follower=pk))
+    
     context = {
         'user_object' : user_object,
         'user_profile' : user_profile,

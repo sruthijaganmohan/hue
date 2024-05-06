@@ -22,12 +22,22 @@ class Post(models.Model):
     caption = models.TextField()
     created_at = models.DateTimeField(default=datetime.now)
     likes_no = models.IntegerField(default=0)
+    comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.user
     
 class Like(models.Model):
     post_id = models.CharField(max_length=500)
+    username = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.username
+
+class Comment(models.Model):
+    post_id = models.CharField(max_length=500)
+    content = models.TextField()
+    commented_at = models.DateTimeField(default=datetime.now)
     username = models.CharField(max_length=100)
 
     def __str__(self):

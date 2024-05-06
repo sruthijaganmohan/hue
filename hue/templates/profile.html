@@ -5,7 +5,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500&display=swap');
     
     body {
-        background-image: url('https://github.com/sruthijaganmohan/images/blob/main/hue-feed.png?raw=true')
+        background-color: #121111;
     }
 
     hr {
@@ -143,9 +143,12 @@
             <img src="{{post.image.url}}" class="post-element" id="post-image"><br>
             <label class="post-element" id="post-caption">{{post.caption}}
             <a href="/like?post_id={{post.id}}" class="likes">{{post.likes_no}} likes</a></label>
+            {% for comment in post.comments.splitlines %}
+                {{ comment }}<br>
+            {% endfor %}
         </div><br>
     </div>
-    
 {% endfor %}
+
 
 {% endblock %}
