@@ -146,7 +146,6 @@ def comment(request):
     else:
         return redirect('feed')
 
-    
 @login_required(login_url='login')
 def profile(request, pk):
     user_object = User.objects.get(username=pk)
