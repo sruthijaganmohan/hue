@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     'core',
 ]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://hue-production.up.railway.app',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -97,7 +99,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'mGRjbVFbisxiEkDeAIqiGxiGjpQDHroy',
         'HOST': 'mysql.railway.internal',
         'PORT': '3306',
     }
